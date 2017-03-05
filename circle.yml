@@ -1,0 +1,6 @@
+deployment:
+  prod:
+    branch: master
+    commands:
+      - aws s3 sync infrastructure s3://diginsur-refarch/infrastructure/ --delete
+      - aws s3 sync master.yaml s3://diginsur-refarch/master.yaml --delete
