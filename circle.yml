@@ -8,8 +8,8 @@ test:
       - aws s3 mb s3://${BUCKET_NAME}
       - aws s3 sync infrastructure s3://${BUCKET_NAME}/infrastructure/ --delete
       - aws s3 cp ./master.yaml s3://${BUCKET_NAME}/
-      - aws cloudformation create-stack --stack-name ${BUCKET_NAME} --parameters ParameterKey=BucketName,ParameterValue=${BUCKET_NAME} --template-url s3://${BUCKET_NAME}/master.yaml --capabilities CAPABILITY_IAM
-      - aws s3 rb s3://${BUCKET_NAME}
+      - aws cloudformation create-stack --stack-name ${BUCKET_NAME} --parameters ParameterKey=BucketName,ParameterValue=${BUCKET_NAME} --template-url s3://${BUCKET_NAME}/master.yaml --capabilities CAPABILITY_IAM --region us-east-1
+      - aws s3 rb s3://${BUCKET_NAME} --force
 deployment:
   prod:
     branch: master
