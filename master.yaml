@@ -40,7 +40,9 @@ Resources:
     SecurityGroups:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: https://s3.amazonaws.com/${BucketName}/infrastructure/security-groups.yaml
+            TemplateURL: !Sub
+                - https://s3.amazonaws.com/${Bucket}/infrastructure/security-groups.yaml
+                - { Bucket: !Ref BucketName }
             Parameters: 
                 EnvironmentName: !Ref AWS::StackName
                 VPC: !GetAtt VPC.Outputs.VPC
@@ -48,7 +50,9 @@ Resources:
     ALB:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: https://s3.amazonaws.com/${BucketName}/infrastructure/load-balancers.yaml
+            TemplateURL: !Sub
+                - https://s3.amazonaws.com/${Bucket}/infrastructure/load-balancers.yaml
+                - { Bucket: !Ref BucketName }
             Parameters:
                 EnvironmentName: !Ref AWS::StackName
                 VPC: !GetAtt VPC.Outputs.VPC
@@ -58,7 +62,9 @@ Resources:
     ECS:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: https://s3.amazonaws.com/${BucketName}/infrastructure/ecs-cluster.yaml
+            TemplateURL: !Sub
+                - https://s3.amazonaws.com/${Bucket}/infrastructure/ecs-cluster.yaml
+                - { Bucket: !Ref BucketName }
             Parameters:
                 EnvironmentName: !Ref AWS::StackName
                 InstanceType: t2.large
