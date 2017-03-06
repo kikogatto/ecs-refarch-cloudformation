@@ -8,7 +8,7 @@ test:
       - if [ $CIRCLE_BRANCH != 'master' ]; then aws s3 mb s3://${BUCKET_NAME} ;fi
       - if [ $CIRCLE_BRANCH != 'master' ]; then aws s3 sync infrastructure s3://${BUCKET_NAME}/infrastructure/ --delete ;fi
       - if [ $CIRCLE_BRANCH != 'master' ]; then aws s3 cp ./master.yaml s3://${BUCKET_NAME}/ ;fi
-      - if [ $CIRCLE_BRANCH != 'master' ]; then aws cloudformation create-stack --stack-name ${BUCKET_NAME} --parameters ParameterKey=BucketName,ParameterValue=${BUCKET_NAME} --template-url https://s3.amazonaws.com/${BUCKET_NAME}/master.yaml --capabilities CAPABILITY_IAM, CAPABILITY_NAMED_IAM--region us-east-1 ;fi
+      - if [ $CIRCLE_BRANCH != 'master' ]; then aws cloudformation create-stack --stack-name ${BUCKET_NAME} --parameters ParameterKey=BucketName,ParameterValue=${BUCKET_NAME} --template-url https://s3.amazonaws.com/${BUCKET_NAME}/master.yaml --capabilities CAPABILITY_IAM, CAPABILITY_NAMED_IAM --region us-east-1 ;fi
 #      - aws s3 rb s3://${BUCKET_NAME} --force
 deployment:
   prod:
